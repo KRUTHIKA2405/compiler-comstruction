@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fin, *fout;
+    char input_file[100], output_file[100];
+    int num;
+
+    printf("Enter input filename: ");
+    scanf("%s", input_file);
+
+    printf("Enter output filename: ");
+    scanf("%s", output_file);
+
+    fin = fopen(input_file, "r");
+    if (fin == NULL) {
+        printf("Could not open input file %s\n", input_file);
+        return 1;
+    }
+
+    fout = fopen(output_file, "w");
+    if (fout == NULL) {
+        printf("Could not open output file %s\n", output_file);
+        fclose(fin);
+        return 1;
+    }
+
+    while (fscanf(fin, "%d", &num) == 1) {   // read decimal number
+        fprintf(fout, "%X\n", num);          // write hexadecimal
+    }
+
+    printf("Conversion completed! Check %s for results.\n", output_file);
+
+    fclose(fin);
+    fclose(fout);
+
+    return 0;
+}
