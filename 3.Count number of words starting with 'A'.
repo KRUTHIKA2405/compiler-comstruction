@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    FILE *fp;
+    char filename[100];
+    int words_starting_A = 0;
+
+    printf("Enter filename: ");
+    scanf("%s", filename);
+
+    fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Could not open file %s\n", filename);
+        return 1;
+    }
+
+    char word[100];
+    while (fscanf(fp, "%99s", word) == 1) {  // read word by word
+        if (word[0] == 'A' || word[0] == 'a')
+            words_starting_A++;
+    }
+
+    fclose(fp);
+
+    printf("Words starting with 'A' or 'a': %d\n", words_starting_A);
+
+    return 0;
+}
