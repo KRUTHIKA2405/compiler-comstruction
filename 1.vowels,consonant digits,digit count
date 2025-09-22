@@ -1,0 +1,27 @@
+%{
+#include <stdio.h>
+
+int vcount = 0, ccount = 0, dcount = 0;
+%}
+
+%%
+
+[aeiouAEIOU]    { vcount++; }                 /* vowels */
+[a-zA-Z]        { ccount++; }                 /* consonants */
+[0-9]           { dcount++; }                 /* digits */
+.|\n            { /* ignore everything else */ }
+
+%%
+
+int main() {
+    printf("Enter text (Ctrl+D to end input):\n");
+    yylex();
+    printf("\nVowels: %d\n", vcount);
+    printf("Consonants: %d\n", ccount);
+    printf("Digits: %d\n", dcount);
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
